@@ -64,56 +64,55 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-slate-900 py-20 md:py-28 text-white">
+      {/* HERO SECTION - SCHOOL UNIFORMS FOCUS */}
+      <section className="relative overflow-hidden bg-slate-900 py-16 md:py-24 text-white border-b border-slate-800">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px]" />
-        <div className="relative mx-auto max-w-7xl px-4 flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="relative mx-auto max-w-7xl px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
 
           <div className="flex flex-col items-start max-w-2xl text-left space-y-5 w-full">
-            <Badge variant="amber" className="px-3 py-1 text-[11px] sm:text-xs uppercase tracking-widest gap-1.5 max-w-full truncate">
-              <Sparkles className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-              <span className="truncate">Geleneksel Ustalık & Modern Çizgi</span>
+            <Badge variant="amber" className="px-3.5 py-1.5 text-[11px] sm:text-xs uppercase tracking-widest gap-2 max-w-full truncate font-bold">
+              <GraduationCap className="h-4 w-4 text-amber-500 shrink-0" />
+              <span className="truncate">Bitlis & Çevresi Resmi Okul Üniformaları</span>
             </Badge>
 
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-serif tracking-tight text-white leading-tight break-words max-w-full">
-              {settings?.heroTitle || 'Esco Giyim Terzilik & Resmi Okul Kıyafetleri'}
+            <h1 className="text-3xl sm:text-5xl font-extrabold font-serif tracking-tight text-white leading-tight break-words max-w-full">
+              Esco Giyim Resmi Okul Üniformaları & Kıyafetleri
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed break-words max-w-full">
-              {settings?.heroSubtitle ||
-                '30 yılı aşkın tecrübemizle resmi okul üniformalarında ve kişiye özel terzi dikimlerinde kaliteli kumaş, mükemmel kalıp ve dayanıklılık sunuyoruz.'}
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed break-words max-w-full">
+              Anlaşmalı tüm ilkokul, ortaokul ve liselerimizin onaylı nakış amblemli polo yaka tişört, kışlık sweatshirt, eşofman takımı ve resmi okul formaları tek adreste.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 w-full">
-              <Link href="/schools" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto bg-amber-500 text-slate-950 hover:bg-amber-400 font-bold gap-2 text-sm sm:text-base shadow-lg shadow-amber-500/20">
+              <a href="#okullar" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-amber-500 text-slate-950 hover:bg-amber-400 font-extrabold gap-2 text-base shadow-xl shadow-amber-500/20 py-6">
                   <GraduationCap className="h-5 w-5" />
-                  <span>Okul Formalarını İncele</span>
+                  <span>Okulunu Seç & Kıyafetleri Gör</span>
                 </Button>
-              </Link>
+              </a>
 
               <div className="w-full sm:w-auto">
                 <WhatsAppButton
                   whatsappNumber={settings?.whatsapp}
                   variant="medium"
-                  label="WhatsApp Danışma Hattı"
+                  label="WhatsApp Sipariş & Bilgi"
                   message="Merhaba, Esco Giyim web sitenizden ulaşıyorum. Okul formaları hakkında bilgi almak istiyorum."
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-6 border-t border-slate-800/80 w-full text-slate-400 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-6 border-t border-slate-800/80 w-full text-slate-300 text-xs font-medium">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-amber-400 shrink-0" />
-                <span>%100 Pamuk Kumaş</span>
+                <span>%100 Pamuk Lakost Kumaş</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-amber-400 shrink-0" />
-                <span>Özel Ölçü Dikimi</span>
+                <span>Orijinal Okul Amblemleri</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-amber-400 shrink-0" />
-                <span>Ücretsiz Tadilat</span>
+                <span>Her Beden Mevcut</span>
               </div>
             </div>
           </div>
@@ -122,81 +121,41 @@ export default async function HomePage() {
             <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-800/80 bg-slate-800">
               <Image
                 src="/images/magaza-dis.jpg"
-                alt="Terzi Giyim & Esco Okul Kıyafetleri Mağaza Vitrini"
+                alt="Esco Giyim Resmi Okul Üniformaları Vitrini"
                 fill
                 priority
                 className="object-cover"
               />
+              <div className="absolute bottom-4 left-4 right-4 bg-slate-950/85 backdrop-blur-md p-4 rounded-2xl border border-slate-800 flex items-center justify-between text-white">
+                <div>
+                  <span className="text-xs text-amber-400 font-bold uppercase tracking-wider block">Bitlis Okul Kıyafetlerinde</span>
+                  <span className="font-serif font-bold text-sm">Resmi & Tescilli Üretim Kalitesi</span>
+                </div>
+                <Shirt className="h-7 w-7 text-amber-500 shrink-0" />
+              </div>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* BUSINESS INTRODUCTION */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-square sm:aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-slate-100">
-              <Image
-                src="/images/magaza-vitrin.jpg"
-                alt="Esco Giyim Terzilik Mağaza Girişi"
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            <div className="flex flex-col space-y-6">
-              <Badge variant="amber" className="w-fit">Hakkımızda</Badge>
-              <h2 className="text-3xl font-bold font-serif text-slate-900 leading-tight">
-                {settings?.aboutTitle || 'Esco Giyim Terzilik & Üniforma Kalitesi'}
-              </h2>
-              <p className="text-slate-600 leading-relaxed text-base">
-                {settings?.aboutContent ||
-                  'Esco Giyim olarak uzun yıllardır okul üniformaları ve kişiye özel terzi dikimlerinde kaliteyi ön planda tutuyoruz.'}
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                  <span className="text-2xl font-black text-amber-600 font-serif">30+ Yıl</span>
-                  <p className="text-xs text-slate-600 font-medium">Sektörel Terzilik Tecrübesi</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                  <span className="text-2xl font-black text-amber-600 font-serif">100%</span>
-                  <p className="text-xs text-slate-600 font-medium">Müşteri ve Veli Memnuniyeti</p>
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <Link href="/about">
-                  <Button variant="outline" className="gap-2 text-sm font-semibold">
-                    <span>Hakkımızda Detaylı Bilgi</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED SCHOOLS */}
-      <section className="py-16 md:py-24 bg-slate-50 border-y border-slate-200/80">
+      {/* FEATURED SCHOOLS & UNIFORM CATALOG - PRIMARY FOCUS */}
+      <section id="okullar" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
         <div className="mx-auto max-w-7xl px-4 space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <Badge variant="amber">Anlaşmalı Okullar</Badge>
-              <h2 className="text-3xl font-bold font-serif text-slate-900">
-                Resmi Okul Üniformalarımız
+              <Badge variant="amber">Katalog & Okullar</Badge>
+              <h2 className="text-2xl sm:text-4xl font-bold font-serif text-slate-900 leading-tight">
+                Anlaşmalı Okullarımız ve Üniformaları
               </h2>
               <p className="text-slate-600 text-sm max-w-xl">
-                Bölgemizdeki seçkin okulların orijinal renk, amblem ve kalıplarına uygun üretilen kıyafetleri inceleyebilirsiniz.
+                Aşağıdan öğrencinizin okulunu seçerek tişört, kışlık sweatshirt, pantolon ve eşofman takımı modellerini bedenleriyle birlikte hemen inceleyebilirsiniz.
               </p>
             </div>
 
             <Link href="/schools">
-              <Button variant="outline" className="gap-2 font-semibold">
-                <span>Tüm Okulları Gör ({schools.length})</span>
+              <Button variant="outline" className="gap-2 font-bold border-slate-300 hover:border-amber-500 hover:text-amber-600">
+                <span>Tüm Okulları Listele ({schools.length})</span>
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
@@ -238,6 +197,77 @@ export default async function HomePage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* QUICK CONTACT BANNER */}
+      <section className="py-10 bg-amber-500 text-slate-950 border-b border-amber-600">
+        <div className="mx-auto max-w-7xl px-4 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="space-y-1">
+            <h3 className="text-xl sm:text-2xl font-extrabold font-serif">Aradığınız Okulu Bulamadınız mı veya Beden Danışmak mı İstiyorsunuz?</h3>
+            <p className="text-xs sm:text-sm font-medium text-slate-900/80">Usta terzilerimiz ve müşteri temsilcilerimiz telefon veya WhatsApp hattında size anında yardımcı olur.</p>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
+            <a
+              href={`tel:${(settings?.phone || '05323137837').replace(/\s+/g, '')}`}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-950 text-amber-400 font-bold text-sm hover:bg-slate-900 transition shadow-lg"
+            >
+              <Phone className="h-4 w-4" />
+              <span>{settings?.phone || '0532 313 78 37'}</span>
+            </a>
+            <WhatsAppButton
+              whatsappNumber={settings?.whatsapp}
+              variant="medium"
+              label="WhatsApp Sipariş"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* SECONDARY TAILORING & ABOUT BANNER */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative aspect-square sm:aspect-[4/3] rounded-3xl overflow-hidden shadow-xl border border-slate-100">
+              <Image
+                src="/images/magaza-vitrin.jpg"
+                alt="Esco Giyim Terzilik Mağaza Girişi"
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            <div className="flex flex-col space-y-6">
+              <Badge variant="amber" className="w-fit">Terzilik & Güvence</Badge>
+              <h2 className="text-2xl sm:text-3xl font-bold font-serif text-slate-900 leading-tight">
+                {settings?.aboutTitle || 'Esco Giyim Terzilik & Üniforma Kalitesi'}
+              </h2>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                {settings?.aboutContent ||
+                  'Esco Giyim olarak uzun yıllardır okul üniformalarında kaliteyi ön planda tutuyoruz. Standart beden harici özel dikim ihtiyacı olan öğrencilerimiz için usta terzi işçiliğimiz ve ücretsiz paça tadilatı olanağımız mevcuttur.'}
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                  <span className="text-xl sm:text-2xl font-black text-amber-600 font-serif">Ücretsiz</span>
+                  <p className="text-xs text-slate-600 font-medium">Paça Boyu Tadilatı</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                  <span className="text-xl sm:text-2xl font-black text-amber-600 font-serif">Özel Ölçü</span>
+                  <p className="text-xs text-slate-600 font-medium">Terzi Dikim Hizmeti</p>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <Link href="/about">
+                  <Button variant="outline" className="gap-2 text-sm font-semibold">
+                    <span>Terzilik & Mağazamızı İnceleyin</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
