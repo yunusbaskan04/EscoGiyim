@@ -1,0 +1,148 @@
+// Prisma Schema for Esco Şah Tailoring & Uniforms Platform (SQLite / PostgreSQL Compatible)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model School {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  logoUrl     String?
+  description String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  isDeleted   Boolean   @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products Product[]
+
+  @@index([slug])
+  @@index([isDeleted, isActive])
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  schoolId    String
+  school      School         @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String         @unique
+  description String?
+  sortOrder   Int            @default(0)
+  isActive    Boolean        @default(true)
+  isDeleted   Boolean        @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  images ProductImage[]
+  sizes  ProductSize[]
+
+  @@index([schoolId])
+  @@index([slug])
+  @@index([isDeleted, isActive])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  isCover   Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+model ProductSize {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  title     String
+  category  String   @default("STORE") // STORE, PRODUCT, TAILORING, OTHER
+  imageUrl  String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([category])
+}
+
+model FaqItem {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String
+  category    String?  @default("Genel")
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Announcement {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  status    String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  sortOrder Int       @default(0)
+  startDate DateTime?
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  adminId    String?
+  action     String   // LOGIN, CREATE, UPDATE, DELETE, SOFT_DELETE, RESTORE
+  entityType String   // School, Product, Gallery, FAQ, Announcement, Settings
+  entityId   String?
+  details    String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model SiteSettings {
+  id           String   @id @default("default")
+  businessName String   @default("Esco Giyim Terzilik & Okul Kıyafetleri")
+  phone        String   @default("+90 532 000 00 00")
+  whatsapp     String   @default("905320000000")
+  address      String   @default("Merkez Mah. Atatürk Cad. No:123, İstanbul")
+  mapsEmbedUrl String   @default("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.518889!2d28.978358!3d41.008238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDAwJzI5LjciTiAyOMKwNTgnNDIuMSJF!5e0!3m2!1str!2str!4v1620000000000")
+  instagramUrl String?  @default("https://instagram.com/escogiyim")
+  facebookUrl  String?  @default("https://facebook.com/escogiyim")
+  workingHours String   @default("Pazartesi - Cumartesi: 08:30 - 19:30 | Pazar: Kapalı")
+  heroTitle    String   @default("Esco Giyim Terzilik & Kaliteli Okul Kıyafetleri")
+  heroSubtitle String   @default("Özel dikim terzilik hizmetleri ve resmi okul kıyafetlerinde 30 yılı aşkın tecrübe, usta işçilik ve kaliteli kumaşlar.")
+  aboutTitle   String   @default("Hakkımızda & Kalite Anlayışımız")
+  aboutContent String   @default("Esco Giyim olarak yıllardır özel dikim terzilik ve resmi okul serisi kıyafet tasarımlarında müşteri memnuniyetini esas alıyoruz. Çocuğunuzun gün boyu rahat edeceği pamuklu ve yüksek dayanıklı kumaşlarla ürettiğimiz okul üniformalarımız Türkiye standartlarında kalitesi tescilli koleksiyonlardan oluşmaktadır.")
+  updatedAt    DateTime @updatedAt
+}
