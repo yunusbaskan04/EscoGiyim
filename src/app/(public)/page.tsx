@@ -21,28 +21,41 @@ import {
 } from 'lucide-react';
 
 import { getSiteSettings } from '@/lib/data';
+import { ProductCatalogGrid, ProductCatalogItem, SchoolFilterOption } from '@/components/products/product-catalog-grid';
 
 export const revalidate = 60;
 
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {
-    title: `${settings?.businessName || 'Esco Giyim Terzilik'} - Resmi Okul Kıyafetleri & Özel Dikim`,
+    title: `${settings?.businessName || 'Esco Giyim Terzilik'} - Resmi Okul Kıyafetleri & Üniformalar`,
     description:
       settings?.heroSubtitle ||
-      'Bitlis ve çevresinde resmi okul kıyafetleri, özel ölçü terzi dikimi ve pamuklu kumaş üniformalar.',
+      'Bitlis ve çevresinde resmi okul üniformaları, polo tişörtler, kışlık sweatshirt modelleri ve eşofman takımları.',
   };
 }
 
 export default async function HomePage() {
-  const [settings, schools, faqs] = await Promise.all([
+  const [settings, productsFromDb, schoolsFromDb, faqs] = await Promise.all([
     getSiteSettings(),
+    safeQuery(
+      () =>
+        db.product.findMany({
+          where: { isActive: true, isDeleted: false },
+          orderBy: { updatedAt: 'desc' },
+          include: {
+            school: { select: { id: true, name: true, slug: true } },
+            images: { orderBy: { sortOrder: 'asc' } },
+            sizes: { orderBy: { sortOrder: 'asc' } },
+          },
+        }),
+      []
+    ),
     safeQuery(
       () =>
         db.school.findMany({
           where: { isActive: true, isDeleted: false },
           orderBy: { sortOrder: 'asc' },
-          take: 6,
           include: {
             _count: {
               select: { products: { where: { isActive: true, isDeleted: false } } },
@@ -61,6 +74,25 @@ export default async function HomePage() {
       []
     ),
   ]);
+
+  const catalogProducts: ProductCatalogItem[] = (productsFromDb as any[]).map((p) => ({
+    id: p.id,
+    name: p.name,
+    slug: p.slug,
+    description: p.description,
+    schoolId: p.school.id,
+    schoolName: p.school.name,
+    schoolSlug: p.school.slug,
+    images: (p.images || []).map((img: any) => ({ id: img.id, url: img.imageUrl, isCover: img.isCover })),
+    sizes: (p.sizes || []).map((sz: any) => ({ id: sz.id, name: sz.name })),
+  }));
+
+  const schoolFilters: SchoolFilterOption[] = (schoolsFromDb as any[]).map((s) => ({
+    id: s.id,
+    name: s.name,
+    slug: s.slug,
+    productCount: s._count?.products || 0,
+  }));
 
   return (
     <div className="flex flex-col w-full">
@@ -139,65 +171,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED SCHOOLS & UNIFORM CATALOG - PRIMARY FOCUS */}
-      <section id="okullar" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
-        <div className="mx-auto max-w-7xl px-4 space-y-12">
+      {/* FEATURED UNIFORM PRODUCTS & SCHOOL FILTER CATALOG */}
+      <section id="katalog" className="py-16 md:py-24 bg-slate-50 border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 space-y-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="space-y-2">
-              <Badge variant="amber">Katalog & Okullar</Badge>
+              <Badge variant="amber">Üniforma Kataloğu</Badge>
               <h2 className="text-2xl sm:text-4xl font-bold font-serif text-slate-900 leading-tight">
-                Anlaşmalı Okullarımız ve Üniformaları
+                Tüm Okul Üniformalarımız ve Modeller
               </h2>
-              <p className="text-slate-600 text-sm max-w-xl">
-                Aşağıdan öğrencinizin okulunu seçerek tişört, kışlık sweatshirt, pantolon ve eşofman takımı modellerini bedenleriyle birlikte hemen inceleyebilirsiniz.
+              <p className="text-slate-600 text-sm max-w-2xl">
+                Aşağıda bölgemizdeki okulların resmi polo yaka tişört, sweatshirt, pantolon ve eşofman modelleri doğrudan listelenmektedir. Okul ismine tıklayarak anında filtreleyebilir, fotoğrafları büyütebilir ve WhatsApp'tan sipariş verebilirsiniz.
               </p>
             </div>
-
-            <Link href="/schools">
-              <Button variant="outline" className="gap-2 font-bold border-slate-300 hover:border-amber-500 hover:text-amber-600">
-                <span>Tüm Okulları Listele ({schools.length})</span>
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {schools.map((school) => (
-              <Card key={school.id} className="group flex flex-col justify-between overflow-hidden border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 h-full">
-                <div className="relative h-48 w-full bg-slate-200 overflow-hidden shrink-0">
-                  <Image
-                    src={school.logoUrl || 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&auto=format&fit=crop&q=80'}
-                    alt={school.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <Badge variant="default" className="shadow-md font-bold">
-                      {school._count.products} Kıyafet Çeşidi
-                    </Badge>
-                  </div>
-                </div>
-
-                <CardContent className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold font-serif text-slate-900 group-hover:text-amber-600 transition leading-snug line-clamp-2 min-h-[3.25rem]">
-                      {school.name}
-                    </h3>
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed min-h-[2.25rem]">
-                      {school.description || 'Resmi okul üniformaları, polo tişörtler ve kışlık sweatshirt modelleri.'}
-                    </p>
-                  </div>
-
-                  <Link href={`/schools/${school.slug}`} className="block pt-2 mt-auto">
-                    <Button variant="primary" className="w-full justify-between group-hover:bg-amber-500 group-hover:text-slate-950 transition font-bold">
-                      <span>Kıyafetleri İncele</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {/* TRENDYOL-STYLE PRODUCT CATALOG GRID */}
+          <ProductCatalogGrid
+            products={catalogProducts}
+            schools={schoolFilters}
+            whatsappNumber={settings?.whatsapp || '905323137837'}
+          />
         </div>
       </section>
 
