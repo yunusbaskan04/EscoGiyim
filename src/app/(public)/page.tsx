@@ -18,6 +18,7 @@ import {
   HelpCircle,
   Camera,
   Shirt,
+  HeartHandshake,
 } from 'lucide-react';
 
 import { getSiteSettings } from '@/lib/data';
@@ -61,6 +62,7 @@ export default async function HomePage() {
     id: s.id,
     name: s.name,
     slug: s.slug,
+    logoUrl: s.logoUrl,
     description: s.description,
   }));
 
@@ -85,7 +87,7 @@ export default async function HomePage() {
             </Badge>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold font-serif tracking-tight text-white leading-tight break-words max-w-full">
-              Esco Giyim - Okul Kıyafetleri & Erkek Giyim
+              ESCO GİYİM - Okul Kıyafetleri
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed break-words max-w-full">
@@ -314,11 +316,11 @@ export default async function HomePage() {
 
             <div className="p-8 rounded-2xl bg-white border border-slate-200/80 flex flex-col space-y-4 hover:shadow-lg transition">
               <div className="h-12 w-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
-                <Shirt className="h-6 w-6" />
+                <HeartHandshake className="h-6 w-6" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Okul Kıyafetleri & Erkek Giyim</h3>
+              <h3 className="text-lg font-bold text-slate-900">Beden & Paça Tadilatı</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Resmi okul üniformalarının yanı sıra geniş erkek giyim koleksiyonu seçeneği.
+                Öğrencilerimize en uygun beden seçimi ve mağazamızda ücretsiz paça ve boy tadilatı hizmeti.
               </p>
             </div>
 

@@ -1,7 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Search, GraduationCap, Shirt, CheckCircle2, MessageCircle, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { Search, GraduationCap, Shirt, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -95,18 +96,39 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                 key={school.id}
                 className="group flex flex-col justify-between overflow-hidden border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 bg-white"
               >
+                {/* Photo header if school has logoUrl */}
+                {school.logoUrl && (
+                  <div className="relative h-48 w-full bg-slate-100 overflow-hidden shrink-0">
+                    <Image
+                      src={school.logoUrl}
+                      alt={school.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge variant="amber" className="text-[10px] font-bold gap-1 shadow-md">
+                        <GraduationCap className="h-3 w-3" />
+                        <span>Resmi Forması Mevcut</span>
+                      </Badge>
+                    </div>
+                  </div>
+                )}
+
                 <CardContent className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Badge variant="amber" className="text-[10px] font-bold gap-1">
-                        <GraduationCap className="h-3 w-3" />
-                        <span>Kıyafeti Mevcut</span>
-                      </Badge>
-                      <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md flex items-center gap-1">
-                        <CheckCircle2 className="h-3 w-3" />
-                        Stokta
-                      </span>
-                    </div>
+                    {!school.logoUrl && (
+                      <div className="flex items-center justify-between">
+                        <Badge variant="amber" className="text-[10px] font-bold gap-1">
+                          <GraduationCap className="h-3 w-3" />
+                          <span>Kıyafeti Mevcut</span>
+                        </Badge>
+                        <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md flex items-center gap-1">
+                          <CheckCircle2 className="h-3 w-3" />
+                          Stokta
+                        </span>
+                      </div>
+                    )}
 
                     <h3 className="text-lg font-bold font-serif text-slate-900 group-hover:text-amber-600 transition leading-snug line-clamp-2 min-h-[3rem]">
                       {school.name}

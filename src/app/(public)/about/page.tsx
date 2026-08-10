@@ -119,7 +119,7 @@ export default async function AboutPage() {
         </div>
 
         {/* Core Values */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-slate-200">
           <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-center">
             <div className="mx-auto h-12 w-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
               <Award className="h-6 w-6" />
@@ -134,14 +134,6 @@ export default async function AboutPage() {
             </div>
             <h3 className="font-bold text-slate-900">Selanik Kumaş</h3>
             <p className="text-xs text-slate-500">Cilde dost, anti-alerjik %100 pamuklu doku.</p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-center">
-            <div className="mx-auto h-12 w-12 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
-              <Shirt className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-slate-900">Erkek Giyim</h3>
-            <p className="text-xs text-slate-500">Şık erkek giyim ürün koleksiyonu.</p>
           </div>
 
           <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-3 text-center">

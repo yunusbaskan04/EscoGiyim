@@ -33,7 +33,17 @@ export function SchoolDetailView({ school, whatsappNumber = '905323137837' }: Sc
       {/* School Header Banner */}
       <div className="rounded-3xl bg-slate-900 text-white p-8 md:p-12 shadow-xl border border-slate-800 relative overflow-hidden flex flex-col md:flex-row items-center gap-8">
         <div className="relative h-28 w-28 md:h-36 md:w-36 shrink-0 rounded-2xl overflow-hidden border-4 border-amber-500/80 shadow-2xl bg-amber-500/10 flex items-center justify-center text-amber-400">
-          <GraduationCap className="h-16 w-16" />
+          {school.logoUrl ? (
+            <Image
+              src={school.logoUrl}
+              alt={school.name}
+              fill
+              sizes="150px"
+              className="object-cover"
+            />
+          ) : (
+            <GraduationCap className="h-16 w-16" />
+          )}
         </div>
 
         <div className="space-y-3 text-center md:text-left flex-1">

@@ -32,6 +32,7 @@ export default async function SchoolsPage() {
     id: s.id,
     name: s.name,
     slug: s.slug,
+    logoUrl: s.logoUrl,
     description: s.description,
   }));
 

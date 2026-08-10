@@ -246,26 +246,40 @@ export function SchoolsManager({ schools: initialSchools }: SchoolsManagerProps)
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSchools.map((school, index) => (
             <Card key={school.id} className="bg-slate-900 border-slate-800 text-white overflow-hidden flex flex-col justify-between">
-              <div className="relative h-44 w-full bg-slate-950 overflow-hidden">
-                <Image
-                  src={
-                    school.logoUrl ||
-                    'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&auto=format&fit=crop&q=80'
-                  }
-                  alt={school.name}
-                  fill
-                  className="object-cover opacity-80"
-                />
-                <div className="absolute top-3 left-3 flex gap-2">
-                  <Badge variant={school.isActive ? 'success' : 'danger'}>
-                    {school.isActive ? 'Yayında' : 'Pasif'}
-                  </Badge>
-                  {school.isDeleted && <Badge variant="danger">Silindi (Çöp)</Badge>}
+              {school.logoUrl ? (
+                <div className="relative h-44 w-full bg-slate-950 overflow-hidden group">
+                  <Image
+                    src={school.logoUrl}
+                    alt={school.name}
+                    fill
+                    className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <Badge variant={school.isActive ? 'success' : 'danger'}>
+                      {school.isActive ? 'Yayında' : 'Pasif'}
+                    </Badge>
+                    {school.isDeleted && <Badge variant="danger">Silindi (Çöp)</Badge>}
+                  </div>
+                  <div className="absolute top-3 right-3 bg-slate-950/80 text-amber-400 font-bold text-xs px-2.5 py-1 rounded-lg border border-slate-800">
+                    Sıra #{school.sortOrder}
+                  </div>
                 </div>
-                <div className="absolute top-3 right-3 bg-slate-950/80 text-amber-400 font-bold text-xs px-2.5 py-1 rounded-lg border border-slate-800">
-                  Sıra #{school.sortOrder}
+              ) : (
+                <div className="relative h-28 w-full bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4 flex items-center justify-between border-b border-slate-800">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold">
+                      <GraduationCap className="h-5 w-5" />
+                    </div>
+                    <span className="text-xs text-slate-400 font-medium">Fotoğraf Eklenmedi</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant={school.isActive ? 'success' : 'danger'}>
+                      {school.isActive ? 'Yayında' : 'Pasif'}
+                    </Badge>
+                    {school.isDeleted && <Badge variant="danger">Çöp</Badge>}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <CardContent className="p-5 flex-1 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
@@ -377,24 +391,45 @@ export function SchoolsManager({ schools: initialSchools }: SchoolsManagerProps)
                 />
               </div>
 
-              {/* Logo Picker */}
+              {/* Logo Picker with Remove Option */}
               <div className="space-y-2">
-                <label className="font-semibold text-slate-300">Okul Logosu / Bina Görseli</label>
-                <div className="flex items-center gap-3">
-                  {logoUrl && (
-                    <div className="relative h-14 w-14 rounded-xl overflow-hidden border border-slate-700 shrink-0">
-                      <Image src={logoUrl} alt="Logo preview" fill className="object-cover" />
+                <label className="font-semibold text-slate-300">Okul Fotoğrafı / Logosu (Opsiyonel)</label>
+                <div className="space-y-3">
+                  {logoUrl ? (
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 p-3 flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <div className="relative h-16 w-16 rounded-xl overflow-hidden border border-slate-700 shrink-0">
+                          <Image src={logoUrl} alt="Logo preview" fill className="object-cover" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-white text-xs">Fotoğraf Yüklendi</p>
+                          <p className="text-[11px] text-slate-400">Sitede kart görseli olarak görüntülenecek.</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setLogoUrl('')}
+                        className="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white border border-red-500/30 transition text-xs font-semibold flex items-center gap-1.5 shrink-0"
+                        title="Fotoğrafı Kaldır"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        <span>Fotoğrafı Sil</span>
+                      </button>
                     </div>
+                  ) : (
+                    <label className="flex flex-col items-center justify-center gap-2 cursor-pointer rounded-2xl border-2 border-dashed border-slate-800 bg-slate-950 p-5 hover:border-amber-500/50 transition text-slate-400 text-center">
+                      {uploadingLogo ? (
+                        <Loader2 className="h-6 w-6 animate-spin text-amber-500" />
+                      ) : (
+                        <Upload className="h-6 w-6 text-amber-500" />
+                      )}
+                      <div>
+                        <span className="font-semibold text-slate-200">Fotoğraf Yükle</span>
+                        <p className="text-[11px] text-slate-500 mt-0.5">Yüklemezseniz kart sade (yazılı) olarak görünür.</p>
+                      </div>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+                    </label>
                   )}
-                  <label className="flex-1 flex items-center justify-center gap-2 cursor-pointer rounded-xl border border-dashed border-slate-700 bg-slate-950 p-3 hover:border-amber-500 transition text-slate-300 font-medium">
-                    {uploadingLogo ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-amber-500" />
-                    ) : (
-                      <Upload className="h-4 w-4 text-amber-500" />
-                    )}
-                    <span>{logoUrl ? 'Görseli Değiştir' : 'Logo Yükle'}</span>
-                    <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
-                  </label>
                 </div>
               </div>
 
