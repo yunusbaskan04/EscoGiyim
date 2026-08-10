@@ -39,7 +39,6 @@ export interface SchoolAdminItem {
   sortOrder: number;
   isActive: boolean;
   isDeleted: boolean;
-  productCount: number;
 }
 
 interface SchoolsManagerProps {
@@ -275,8 +274,8 @@ export function SchoolsManager({ schools: initialSchools }: SchoolsManagerProps)
                     {school.description || 'Açıklama girilmemiş.'}
                   </p>
                   <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold pt-1">
-                    <Shirt className="h-3.5 w-3.5" />
-                    <span>{school.productCount} Adet Okul Forması Kayıtlı</span>
+                    <CheckCircle2 className="h-3.5 w-3.5" />
+                    <span>Kıyafeti Esco Giyim'de Mevcut</span>
                   </div>
                 </div>
 

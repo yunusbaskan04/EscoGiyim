@@ -26,8 +26,7 @@ export function AdminSidebar() {
 
   const navItems = [
     { name: 'Özet Panel', href: '/admin/dashboard', icon: LayoutDashboard },
-    { name: 'Okullar Yönetimi', href: '/admin/schools', icon: GraduationCap },
-    { name: 'Okul Kıyafetleri', href: '/admin/products', icon: Shirt },
+    { name: 'Okul Listesi Yönetimi', href: '/admin/schools', icon: GraduationCap },
     { name: 'S.S.S Yönetimi', href: '/admin/faq', icon: HelpCircle },
     { name: 'Duyurular', href: '/admin/announcements', icon: Megaphone },
     { name: 'İşlem Logları', href: '/admin/activity-logs', icon: History },

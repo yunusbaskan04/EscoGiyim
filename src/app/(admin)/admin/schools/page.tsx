@@ -14,9 +14,6 @@ export default async function AdminSchoolsPage() {
     () =>
       db.school.findMany({
         orderBy: { sortOrder: 'asc' },
-        include: {
-          _count: { select: { products: { where: { isDeleted: false } } } },
-        },
       }),
     []
   );
@@ -30,7 +27,6 @@ export default async function AdminSchoolsPage() {
     sortOrder: s.sortOrder,
     isActive: s.isActive,
     isDeleted: s.isDeleted,
-    productCount: s._count.products,
   }));
 
   return (

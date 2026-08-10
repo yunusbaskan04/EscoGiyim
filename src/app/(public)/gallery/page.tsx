@@ -10,8 +10,8 @@ export const revalidate = 60;
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {
-    title: `Fotoğraf Galerisi - ${settings?.businessName || 'Esco Giyim Terzilik'}`,
-    description: 'Atölyemiz, terzi işçiliğimiz, mağazamı ve okul kıyafetlerimizden özel fotoğraflar.',
+    title: `Fotoğraf Galerisi - ${settings?.businessName || 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim'}`,
+    description: 'Kumaş kalitemiz, mağazamız ve öğrenci okul kıyafetlerimizden özel fotoğraflar.',
   };
 }
 
@@ -39,7 +39,7 @@ export default async function GalleryPage() {
           <Badge variant="amber">Görsel Albüm</Badge>
           <h1 className="text-4xl font-bold font-serif text-slate-900">Fotoğraf Galerimiz</h1>
           <p className="text-slate-600 text-base leading-relaxed">
-            Terzi atölyemiz, kumaş kalitemiz, mağazamız ve öğrenci okul kıyafetlerimizden kareleri inceleyebilirsiniz.
+            Selanik kumaş kalitemiz, mağazamız, erkek giyim koleksiyonumuz ve öğrenci okul kıyafetlerimizden kareleri inceleyebilirsiniz.
           </p>
         </div>
 

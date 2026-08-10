@@ -11,7 +11,7 @@ export const revalidate = 60;
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {
-    title: `İletişim & Konum - ${settings?.businessName || 'Esco Giyim Terzilik'}`,
+    title: `İletişim & Konum - ${settings?.businessName || 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim'}`,
     description: 'Telefon, WhatsApp, adres, çalışma saatleri ve Google Harita konumu.',
   };
 }
@@ -30,7 +30,7 @@ export default async function ContactPage() {
           <Badge variant="amber">Bize Ulaşın</Badge>
           <h1 className="text-2xl sm:text-4xl font-bold font-serif text-slate-900 leading-tight">İletişim & Mağaza Konumu</h1>
           <p className="text-slate-600 text-base leading-relaxed">
-            Okul kıyafeti almak, ölçü yaptırmak veya bilgi edinmek için magazamızı ziyaret edebilir veya iletişim hatlarımızdan bize ulaşabilirsiniz.
+            Okul kıyafetleri ve erkek giyim ürünlerimizi incelemek, beden danışmak veya sipariş vermek için mağazamızı ziyaret edebilir ya da iletişim hatlarımızdan bize ulaşabilirsiniz.
           </p>
         </div>
 

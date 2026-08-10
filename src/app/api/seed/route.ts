@@ -25,61 +25,136 @@ export async function GET() {
     await db.siteSettings.upsert({
       where: { id: 'default' },
       update: {
-        businessName: 'Esco Giyim Terzilik & Okul Kıyafetleri',
-        instagramUrl: 'https://instagram.com/escogiyim',
-        facebookUrl: 'https://facebook.com/escogiyim',
-        heroTitle: 'Esco Giyim Terzilik & Resmi Okul Kıyafetleri',
+        businessName: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
+        phone: '+90 532 313 78 37',
+        whatsapp: '905323137837',
+        instagramUrl: 'https://instagram.com/escogiyimokul',
+        facebookUrl: 'https://facebook.com/escogiyimokul',
+        heroTitle: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
         aboutTitle: 'Esco Giyim Kalitesi ve Usta İşçilik',
-        aboutContent: 'Esco Giyim Terzilik olarak uzun yıllardır Pendik ve çevresindeki seçkin okullara özel dikim ve hazır seri okul üniformaları temin etmekteyiz. Çocuğunuzun gün boyu hareket özgürlüğünü kısıtlamayan, anti-alerjik ve yıkamaya dayanıklı kumaşlarımızla okul sezonuna hazırız.',
+        aboutContent: 'Esco Giyim olarak Bitlis ve çevresindeki seçkin okullara %100 pamuk Selanik kumaştan üretilen resmi okul üniformaları ve erkek giyim ürünleri temin etmekteyiz. Çocuğunuzun gün boyu hareket özgürlüğünü kısıtlamayan, anti-alerjik ve yıkamaya dayanıklı kumaşlarımızla hazırız.',
       },
       create: {
         id: 'default',
-        businessName: 'Esco Giyim Terzilik & Okul Kıyafetleri',
-        phone: '+90 532 123 45 67',
-        whatsapp: '905321234567',
-        address: 'Fevzi Çakmak Mah. İstanbul Cad. No:42/A, Pendik / İstanbul',
-        mapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3014.286392!2d29.231211!3d40.880412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUyJzE5LjUiTiAyOcKwMTMnNTIuMyJF!5e0!3m2!1str!2str!4v1620000000000',
-        instagramUrl: 'https://instagram.com/escogiyim',
-        facebookUrl: 'https://facebook.com/escogiyim',
+        businessName: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
+        phone: '+90 532 313 78 37',
+        whatsapp: '905323137837',
+        address: 'ESCO GİYİM, Hüsrev Paşa, Çam sitesi İpek Apt. Altı, 13000 Bitlis Merkez / Bitlis',
+        mapsEmbedUrl: 'https://www.google.com/maps/embed',
+        instagramUrl: 'https://instagram.com/escogiyimokul',
+        facebookUrl: 'https://facebook.com/escogiyimokul',
         workingHours: 'Pazartesi - Cumartesi: 08:30 - 19:30 | Pazar: Kapalı',
-        heroTitle: 'Esco Giyim Terzilik & Resmi Okul Kıyafetleri',
-        heroSubtitle: '30 yılı aşkın terzilik tecrübemiz ve kaliteli kumaş seçimlerimizle resmi okul kıyafetlerinde şıklığı ve dayanıklılığı bir arada sunuyoruz.',
+        heroTitle: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
+        heroSubtitle: 'Kaliteli pamuk Selanik kumaş seçimlerimizle resmi okul kıyafetlerinde ve erkek giyimde şıklığı ve dayanıklılığı bir arada sunuyoruz.',
         aboutTitle: 'Esco Giyim Kalitesi ve Usta İşçilik',
-        aboutContent: 'Esco Giyim Terzilik olarak uzun yıllardır Pendik ve çevresindeki seçkin okullara özel dikim ve hazır seri okul üniformaları temin etmekteyiz. Çocuğunuzun gün boyu hareket özgürlüğünü kısıtlamayan, anti-alerjik ve yıkamaya dayanıklı kumaşlarımızla okul sezonuna hazırız.',
+        aboutContent: 'Esco Giyim olarak Bitlis ve çevresindeki seçkin okullara %100 pamuk Selanik kumaştan üretilen resmi okul üniformaları ve erkek giyim ürünleri temin etmekteyiz.',
       },
     });
 
-    // Check existing schools count
-    const count = await db.school.count();
-    if (count === 0) {
+    // Clear and populate flyer poster schools
+    await db.school.deleteMany();
+
+    const initialSchools = [
+      {
+        name: 'Ş.Ö.Ergin Komut İlkokulu',
+        slug: 's-o-ergin-komut-ilkokulu',
+        description: 'Resmi kız ve erkek öğrenci Selanik kumaş polo yaka tişört, kışlık sweatshirt ve ilkokul takımları.',
+        sortOrder: 1,
+      },
+      {
+        name: 'Ş.Hüsamettin Kandemir Ortaokulu',
+        slug: 's-husamettin-kandemir-ortaokulu',
+        description: 'Resmi onaylı nakış amblemli Selanik kumaş tişört, sweatshirt ve ortaokul eşofman takımı.',
+        sortOrder: 2,
+      },
+      {
+        name: 'Ş.Mahir Ayabak İlk & Ortaokulu',
+        slug: 's-mahir-ayabak-ilk-ortaokulu',
+        description: 'İlkokul ve ortaokul öğrencilerimiz için %100 pamuklu resmi renk kodlarında okul formaları.',
+        sortOrder: 3,
+      },
+      {
+        name: 'Ş.Mahir Ayabak İmam Hatip Ortaokulu',
+        slug: 's-mahir-ayabak-imam-hatip-ortaokulu',
+        description: 'Resmi İmam Hatip ortaokul amblemli Selanik kumaş tişört, sweatshirt ve okul kıyafetleri.',
+        sortOrder: 4,
+      },
+      {
+        name: 'Milli İrade İlk & Ortaokulu',
+        slug: 'milli-irade-ilk-ortaokulu',
+        description: 'Milli İrade ilkokul ve ortaokul resmi Selanik kumaş tişört ve kışlık eşofman takımı.',
+        sortOrder: 5,
+      },
+      {
+        name: 'T.O.B.B. İlkokulu',
+        slug: 'tobb-ilkokulu',
+        description: 'TOBB İlkokulu minik öğrencilerimiz için cilde dost terletmeyen anti-alerjik pamuklu okul formaları.',
+        sortOrder: 6,
+      },
+      {
+        name: 'Selahaddin Eyyubi Ortaokulu',
+        slug: 'selahaddin-eyyubi-ortaokulu',
+        description: 'Resmi amblemli Selanik dokuma polo yaka tişört, kışlık sweatshirt ve eşofman takımı.',
+        sortOrder: 7,
+      },
+      {
+        name: 'Ahmet Eren İlkokulu',
+        slug: 'ahmet-eren-ilkokulu',
+        description: 'Ahmet Eren İlkokulu kız ve erkek öğrenci pamuklu resmi polo tişört ve okul kıyafetleri.',
+        sortOrder: 8,
+      },
+      {
+        name: 'Zübeyde Hanım İlkokulu',
+        slug: 'zubeyde-hanim-ilkokulu',
+        description: 'Zübeyde Hanım İlkokulu resmi renk ve amblemlerine uygun pamuklu Selanik kumaş tişörtler.',
+        sortOrder: 9,
+      },
+      {
+        name: 'Yalnızçamlar İlk & Ortaokulu',
+        slug: 'yalnizcamlar-ilk-ortaokulu',
+        description: 'Yalnızçamlar ilk ve ortaokulu öğrenci Selanik kumaş tişört, sweatshirt ve spor takımları.',
+        sortOrder: 10,
+      },
+      {
+        name: 'N.Fazıl Kısakürek İlk & Ortaokulu',
+        slug: 'n-fazil-kisakurek-ilk-ortaokulu',
+        description: 'Necip Fazıl Kısakürek ilk ve ortaokulu onaylı nakış amblemli Selanik kumaş okul kıyafetleri.',
+        sortOrder: 11,
+      },
+      {
+        name: 'Hikmet Kiler Fen Lisesi',
+        slug: 'hikmet-kiler-fen-lisesi',
+        description: 'Fen Lisesi resmi onaylı amblemli Selanik kumaş polo yaka tişört, kışlık hırka ve sweatshirt.',
+        sortOrder: 12,
+      },
+      {
+        name: 'Bitlis Anadolu Lisesi',
+        slug: 'bitlis-anadolu-lisesi',
+        description: 'Bitlis Anadolu Lisesi resmi kız ve erkek öğrenci Selanik kumaş tişört ve kışlık sweatshirt.',
+        sortOrder: 13,
+      },
+      {
+        name: 'Cemil Özgür M.T.A.L.',
+        slug: 'cemil-ozgur-mtal',
+        description: 'Cemil Özgür M.T.A.L. resmi amblemli Selanik kumaş polo tişört ve lise kıyafet kombinleri.',
+        sortOrder: 14,
+      },
+      {
+        name: 'Said Nursi İmam Hatip Lisesi',
+        slug: 'said-nursi-imam-hatip-lisesi',
+        description: 'Said Nursi İmam Hatip Lisesi resmi öğrenci üniformaları, tişört ve kışlık sweatshirt modelleri.',
+        sortOrder: 15,
+      },
+    ];
+
+    for (const sch of initialSchools) {
       await db.school.create({
         data: {
-          name: 'Atatürk Anadolu Lisesi',
-          slug: 'ataturk-anadolu-lisesi',
-          logoUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400&auto=format&fit=crop&q=80',
-          description: 'Atatürk Anadolu Lisesi resmi kız ve erkek öğrenci kıyafetleri.',
-          products: {
-            create: [
-              {
-                name: 'Kısa Kollu Polo Yaka Tişört',
-                slug: 'ataturk-al-polo-tisort',
-                description: '%100 Pamuklu lakost kumaş, nakışlı göğüs logosu.',
-                images: {
-                  create: [
-                    { imageUrl: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&auto=format&fit=crop&q=80', isCover: true },
-                  ],
-                },
-                sizes: {
-                  create: [
-                    { name: 'S', sortOrder: 1 },
-                    { name: 'M', sortOrder: 2 },
-                    { name: 'L', sortOrder: 3 },
-                    { name: 'XL', sortOrder: 4 },
-                  ],
-                },
-              },
-            ],
-          },
+          name: sch.name,
+          slug: sch.slug,
+          description: sch.description,
+          sortOrder: sch.sortOrder,
+          isActive: true,
         },
       });
     }

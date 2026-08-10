@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Scissors, Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Shirt, Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -15,7 +15,7 @@ interface HeaderProps {
 export function Header({
   phone = '+90 532 313 78 37',
   whatsapp = '905323137837',
-  businessName = 'Esco Giyim Terzilik',
+  businessName = 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const pathname = usePathname();
@@ -40,11 +40,11 @@ export function Header({
       <div className="border-b border-slate-800/80 bg-slate-950 px-3 py-1.5 text-xs text-slate-400 overflow-hidden w-full">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2">
           <div className="hidden md:flex items-center gap-2 truncate">
-            <Scissors className="h-3.5 w-3.5 text-amber-500 shrink-0" />
-            <span className="truncate">Özel Dikim Terzilik & Resmi Okul Üniformaları</span>
+            <Shirt className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+            <span className="truncate">Resmi Okul Kıyafetleri & Erkek Giyim | Bitlis</span>
           </div>
           <div className="flex md:hidden items-center gap-1 text-amber-400 font-semibold text-[11px] truncate">
-            <Scissors className="h-3 w-3 shrink-0" />
+            <Shirt className="h-3 w-3 shrink-0" />
             <span className="truncate">Esco Giyim Bitlis</span>
           </div>
           <div className="flex items-center gap-2.5 shrink-0 text-[11px] sm:text-xs">
@@ -73,14 +73,14 @@ export function Header({
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 text-slate-950 shadow-lg shadow-amber-500/20 transition-transform group-hover:scale-105">
-            <Scissors className="h-6 w-6 stroke-[2.5]" />
+            <Shirt className="h-6 w-6 stroke-[2.5]" />
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-extrabold tracking-tight text-white font-serif group-hover:text-amber-400 transition">
               ESCO GİYİM
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-widest text-slate-400">
-              Terzilik & Üniforma
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+              Okul Kıyafetleri & Erkek Giyim
             </span>
           </div>
         </Link>

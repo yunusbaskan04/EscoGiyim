@@ -15,16 +15,16 @@ export function AccordionItem({ question, answer, defaultOpen = false, className
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   return (
-    <div className={cn('border-b border-slate-200 py-4 dark:border-slate-800', className)}>
+    <div className={cn('border-b border-slate-200 py-4', className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between text-left font-semibold text-slate-900 transition-colors hover:text-amber-600 dark:text-white dark:hover:text-amber-400"
+        className="flex w-full items-center justify-between text-left font-semibold text-slate-900 transition-colors hover:text-amber-600"
         aria-expanded={isOpen}
       >
         <span className="text-base md:text-lg pr-4">{question}</span>
         <ChevronDown
           className={cn(
-            'h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300 dark:text-slate-400',
+            'h-5 w-5 shrink-0 text-slate-500 transition-transform duration-300',
             isOpen && 'rotate-180 text-amber-600'
           )}
         />
@@ -35,7 +35,7 @@ export function AccordionItem({ question, answer, defaultOpen = false, className
           isOpen ? 'grid-rows-[1fr] opacity-100 mt-3' : 'grid-rows-[0fr] opacity-0'
         )}
       >
-        <div className="overflow-hidden text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+        <div className="overflow-hidden text-sm leading-relaxed text-slate-600">
           {answer}
         </div>
       </div>

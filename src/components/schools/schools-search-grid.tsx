@@ -1,28 +1,28 @@
 'use client';
 
 import * as React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Search, GraduationCap, ArrowRight, Shirt } from 'lucide-react';
+import { Search, GraduationCap, Shirt, CheckCircle2, MessageCircle, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { WhatsAppButton } from '@/components/common/whatsapp-button';
 
 export interface SchoolItemData {
   id: string;
   name: string;
   slug: string;
-  logoUrl: string | null;
-  description: string | null;
-  productCount: number;
+  logoUrl?: string | null;
+  description?: string | null;
+  productCount?: number;
 }
 
 interface SchoolsSearchGridProps {
   schools: SchoolItemData[];
+  whatsappNumber?: string;
 }
 
-export function SchoolsSearchGrid({ schools }: SchoolsSearchGridProps) {
+export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: SchoolsSearchGridProps) {
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const filteredSchools = React.useMemo(() => {
@@ -34,94 +34,115 @@ export function SchoolsSearchGrid({ schools }: SchoolsSearchGridProps) {
   }, [schools, searchQuery]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       {/* Search Bar */}
-      <div className="relative max-w-xl mx-auto">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-        <Input
-          type="text"
-          placeholder="Okul adı veya bölge ara (örn: Atatürk Anadolu Lisesi)..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-12 pr-4 h-12 text-base rounded-2xl border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
-        />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery('')}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-slate-600"
-          >
-            Temizle
-          </button>
-        )}
+      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <div className="relative max-w-2xl mx-auto">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+          <Input
+            type="text"
+            placeholder="Okul adı ara (örn: Hikmet Kiler Fen Lisesi, Bitlis Lisesi)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-12 pr-10 h-13 text-sm sm:text-base rounded-2xl border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-700 bg-slate-100 p-1.5 rounded-lg"
+            >
+              Temizle
+            </button>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400 px-1 pt-1">
+          <span className="flex items-center gap-1.5">
+            <GraduationCap className="h-4 w-4 text-amber-500" />
+            <span>Kıyafeti Tedarik Edilen Okullar</span>
+          </span>
+          <span>{filteredSchools.length} Okul Listeleniyor</span>
+        </div>
       </div>
 
-      {/* Results summary */}
-      <div className="flex items-center justify-between text-sm text-slate-500 font-medium">
-        <span>Toplam {filteredSchools.length} okul gösteriliyor</span>
-        {searchQuery && <span>&quot;{searchQuery}&quot; için sonuçlar</span>}
-      </div>
-
-      {/* Responsive Grid */}
+      {/* Responsive School Grid */}
       {filteredSchools.length === 0 ? (
-        <div className="py-16 text-center bg-white rounded-3xl border border-slate-200 p-8 space-y-4">
+        <div className="py-16 text-center bg-white rounded-3xl border border-slate-200 p-8 space-y-4 shadow-sm">
           <GraduationCap className="mx-auto h-12 w-12 text-slate-300" />
-          <h3 className="text-lg font-bold text-slate-800">Aramanıza Uygun Okul Bulunamadı</h3>
+          <h3 className="text-lg font-bold text-slate-800">Aradığınız Okul Bulunamadı</h3>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            Farklı bir arama terimi deneyebilir veya aradığınız okul listede yoksa doğrudan bize sorabilirsiniz.
+            Aradığınız okul henüz listeye eklenmemiş olabilir. WhatsApp hattımızdan doğrudan sorabilirsiniz.
           </p>
-          <Button variant="outline" onClick={() => setSearchQuery('')} className="text-xs font-semibold">
-            Tüm Okulları Göster
-          </Button>
+          <div className="flex items-center justify-center gap-3 pt-2">
+            <Button variant="outline" onClick={() => setSearchQuery('')} className="text-xs font-semibold">
+              Tüm Okul Listesini Göster
+            </Button>
+            <WhatsAppButton
+              whatsappNumber={whatsappNumber}
+              variant="medium"
+              label="WhatsApp'tan Okul Sor"
+              message={`Merhaba, Esco Giyim'de ${searchQuery} okulunun kıyafetleri mevcut mu?`}
+            />
+          </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredSchools.map((school) => (
-            <Card
-              key={school.id}
-              className="group flex flex-col justify-between overflow-hidden border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 h-full"
-            >
-              <div className="relative h-52 w-full bg-slate-100 overflow-hidden shrink-0">
-                <Image
-                  src={
-                    school.logoUrl ||
-                    'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&auto=format&fit=crop&q=80'
-                  }
-                  alt={school.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                  <Badge variant="amber" className="shadow-md font-bold gap-1">
-                    <Shirt className="h-3.5 w-3.5" />
-                    <span>{school.productCount} Kıyafet Çeşidi</span>
-                  </Badge>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredSchools.map((school) => {
+            const waMsg = `Merhaba, Esco Giyim web sitenizden ulaşıyorum. "${school.name}" resmi okul üniformaları (Selanik tişört, sweatshirt) hakkında bilgi almak istiyorum.`;
 
-              <CardContent className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold font-serif text-slate-900 group-hover:text-amber-600 transition leading-snug line-clamp-2 min-h-[3.25rem]">
-                    {school.name}
-                  </h3>
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed min-h-[2.25rem]">
-                    {school.description || 'Resmi okul üniformaları, polo tişörtler, eşofman takımları ve sweatshirt modelleri.'}
-                  </p>
-                </div>
+            return (
+              <Card
+                key={school.id}
+                className="group flex flex-col justify-between overflow-hidden border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 bg-white"
+              >
+                <CardContent className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Badge variant="amber" className="text-[10px] font-bold gap-1">
+                        <GraduationCap className="h-3 w-3" />
+                        <span>Kıyafeti Mevcut</span>
+                      </Badge>
+                      <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <CheckCircle2 className="h-3 w-3" />
+                        Stokta
+                      </span>
+                    </div>
 
-                <Link href={`/schools/${school.slug}`} className="block pt-2 mt-auto">
-                  <Button
-                    variant="primary"
-                    className="w-full justify-between font-bold group-hover:bg-amber-500 group-hover:text-slate-950 transition"
-                  >
-                    <span>Üniformaları İncele</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
+                    <h3 className="text-lg font-bold font-serif text-slate-900 group-hover:text-amber-600 transition leading-snug line-clamp-2 min-h-[3rem]">
+                      {school.name}
+                    </h3>
+
+                    <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed min-h-[3rem]">
+                      {school.description || '%100 Pamuk Selanik kumaş polo yaka tişört, kışlık sweatshirt ve eşofman takımı.'}
+                    </p>
+
+                    <div className="pt-2 border-t border-slate-100 space-y-1 text-[11px] text-slate-500 font-medium">
+                      <div className="flex items-center gap-1.5 text-slate-700">
+                        <Shirt className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                        <span>Selanik Kumaş Tişört & Sweatshirt</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-slate-700">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                        <span>Tüm Bedenler & Paça Tadilatı</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 mt-auto">
+                    <a
+                      href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waMsg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 px-3 transition shadow-sm group-hover:shadow-md"
+                    >
+                      <MessageCircle className="h-4 w-4 shrink-0" />
+                      <span>WhatsApp İle Sor / Sipariş Ver</span>
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
     </div>

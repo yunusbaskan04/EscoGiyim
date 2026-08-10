@@ -10,8 +10,8 @@ export const revalidate = 60;
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {
-    title: `Sıkça Sorulan Sorular - ${settings?.businessName || 'Esco Giyim Terzilik'}`,
-    description: 'Okul kıyafeti bedenleri, kumaş özellikleri, özel terzi dikimleri ve WhatsApp sipariş bilgileri.',
+    title: `Sıkça Sorulan Sorular - ${settings?.businessName || 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim'}`,
+    description: 'Okul kıyafeti bedenleri, Selanik kumaş özellikleri, beden değişimi ve WhatsApp sipariş bilgileri.',
   };
 }
 
@@ -30,8 +30,8 @@ export default async function FaqPage() {
 
   const faqs: FaqItemData[] = faqsFromDb.map((f) => ({
     id: f.id,
-    question: f.question,
-    answer: f.answer,
+    question: f.question.replace(/lakost/gi, 'Selanik'),
+    answer: f.answer.replace(/lakost/gi, 'Selanik').replace(/özel ölçü dikim/gi, 'beden seçeneği ve paça tadilatı'),
     category: f.category,
   }));
 
@@ -43,7 +43,7 @@ export default async function FaqPage() {
           <Badge variant="amber">Destek & Bilgi</Badge>
           <h1 className="text-4xl font-bold font-serif text-slate-900">Sıkça Sorulan Sorular</h1>
           <p className="text-slate-600 text-base leading-relaxed">
-            Velilerimizin ve müşterilerimizin terzilik hizmetlerimiz, forma kalitemiz ve beden değişimi ile ilgili merak ettiği tüm detaylar.
+            Velilerimizin ve müşterilerimizin okul kıyafetlerimiz, Selanik kumaş kalitemiz, erkek giyim ürünlerimiz ve beden değişimi ile ilgili merak ettiği tüm detaylar.
           </p>
         </div>
 

@@ -62,157 +62,113 @@ async function main() {
     ],
   });
 
-  // 4. Sample Schools & Uniform Products
-  await prisma.productSize.deleteMany();
-  await prisma.productImage.deleteMany();
-  await prisma.product.deleteMany();
+  // 4. Sample Schools
   await prisma.school.deleteMany();
 
-  const school1 = await prisma.school.create({
-    data: {
-      name: 'Atatürk Anadolu Lisesi',
-      slug: 'ataturk-anadolu-lisesi',
-      logoUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400&auto=format&fit=crop&q=80',
-      description: 'Atatürk Anadolu Lisesi resmi kız ve erkek öğrenci kıyafetleri, tişört ve lacivert sweat takımları.',
+  const initialSchools = [
+    {
+      name: 'Ş.Ö.Ergin Komut İlkokulu',
+      slug: 's-o-ergin-komut-ilkokulu',
+      description: 'Resmi kız ve erkek öğrenci Selanik kumaş polo yaka tişört, kışlık sweatshirt ve ilkokul takımları.',
       sortOrder: 1,
-      isActive: true,
-      products: {
-        create: [
-          {
-            name: 'Kısa Kollu Polo Yaka Tişört',
-            slug: 'ataturk-al-kisa-kollu-polo-tisort',
-            description: '%100 Pamuklu nefes alabilen lakost kumaş, arma nakışlı göğüs logosu ve yıpranmaya dayanıklı yaka.',
-            sortOrder: 1,
-            isActive: true,
-            images: {
-              create: [
-                { imageUrl: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&auto=format&fit=crop&q=80', isCover: true, sortOrder: 1 },
-                { imageUrl: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80', isCover: false, sortOrder: 2 },
-              ],
-            },
-            sizes: {
-              create: [
-                { name: 'XS / 12-13 Yaş', sortOrder: 1 },
-                { name: 'S', sortOrder: 2 },
-                { name: 'M', sortOrder: 3 },
-                { name: 'L', sortOrder: 4 },
-                { name: 'XL', sortOrder: 5 },
-              ],
-            },
-          },
-          {
-            name: 'Fermuarlı Kapüşonlu Sweatshirt',
-            slug: 'ataturk-al-fermuarli-kapusonlu-sweatshirt',
-            description: 'Üç iplik şardonlu sıcak tutan premium kumaş, dayanıklı fermuar ve armalı okul nakışı.',
-            sortOrder: 2,
-            isActive: true,
-            images: {
-              create: [
-                { imageUrl: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&auto=format&fit=crop&q=80', isCover: true, sortOrder: 1 },
-              ],
-            },
-            sizes: {
-              create: [
-                { name: 'S', sortOrder: 1 },
-                { name: 'M', sortOrder: 2 },
-                { name: 'L', sortOrder: 3 },
-                { name: 'XL', sortOrder: 4 },
-              ],
-            },
-          },
-        ],
-      },
     },
-  });
-
-  const school2 = await prisma.school.create({
-    data: {
-      name: 'Cumhuriyet Ortaokulu',
-      slug: 'cumhuriyet-ortaokulu',
-      logoUrl: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&auto=format&fit=crop&q=80',
-      description: 'Cumhuriyet Ortaokulu kız ve erkek formalı yazlık - kışlık öğrenci takımları.',
+    {
+      name: 'Ş.Hüsamettin Kandemir Ortaokulu',
+      slug: 's-husamettin-kandemir-ortaokulu',
+      description: 'Resmi onaylı nakış amblemli Selanik kumaş tişört, sweatshirt ve ortaokul eşofman takımı.',
       sortOrder: 2,
-      isActive: true,
-      products: {
-        create: [
-          {
-            name: 'Kışlık Bisiklet Yaka Swetshirt',
-            slug: 'cumhuriyet-oo-kislik-swetshirt',
-            description: 'Bordo pamuk kumaş, esnek manşetler ve okul amblemli göğüs baskısı.',
-            sortOrder: 1,
-            isActive: true,
-            images: {
-              create: [
-                { imageUrl: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&auto=format&fit=crop&q=80', isCover: true, sortOrder: 1 },
-              ],
-            },
-            sizes: {
-              create: [
-                { name: '8-9 Yaş', sortOrder: 1 },
-                { name: '10-11 Yaş', sortOrder: 2 },
-                { name: '12-13 Yaş', sortOrder: 3 },
-                { name: 'S', sortOrder: 4 },
-              ],
-            },
-          },
-          {
-            name: 'Eşofman Altı & Üstü Takım',
-            slug: 'cumhuriyet-oo-esofman-takimi',
-            description: 'Mikro kumaş leke tutmaz eşofman takımı, hareket kolaylığı sağlayan bel lastiği.',
-            sortOrder: 2,
-            isActive: true,
-            images: {
-              create: [
-                { imageUrl: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80', isCover: true, sortOrder: 1 },
-              ],
-            },
-            sizes: {
-              create: [
-                { name: '8-9 Yaş', sortOrder: 1 },
-                { name: '10-11 Yaş', sortOrder: 2 },
-                { name: '12-13 Yaş', sortOrder: 3 },
-                { name: '14-15 Yaş', sortOrder: 4 },
-              ],
-            },
-          },
-        ],
-      },
     },
-  });
-
-  const school3 = await prisma.school.create({
-    data: {
-      name: 'Milli Egemenlik İlkokulu',
-      slug: 'milli-egemenlik-ilkokulu',
-      logoUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&auto=format&fit=crop&q=80',
-      description: 'Milli Egemenlik İlkokulu minik öğrenciler için pamuklu ve cilde dost sevimli formalar.',
+    {
+      name: 'Ş.Mahir Ayabak İlk & Ortaokulu',
+      slug: 's-mahir-ayabak-ilk-ortaokulu',
+      description: 'İlkokul ve ortaokul öğrencilerimiz için %100 pamuklu resmi renk kodlarında okul formaları.',
       sortOrder: 3,
-      isActive: true,
-      products: {
-        create: [
-          {
-            name: 'İlkokul Kısa Kollu Bordo Tişört',
-            slug: 'milli-egemenlik-ilkokul-tisort',
-            description: '%100 Organik pamuklu hassas çocuk cildine uygun okul tişörtü.',
-            sortOrder: 1,
-            isActive: true,
-            images: {
-              create: [
-                { imageUrl: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80', isCover: true, sortOrder: 1 },
-              ],
-            },
-            sizes: {
-              create: [
-                { name: '6-7 Yaş', sortOrder: 1 },
-                { name: '8-9 Yaş', sortOrder: 2 },
-                { name: '10-11 Yaş', sortOrder: 3 },
-              ],
-            },
-          },
-        ],
-      },
     },
-  });
+    {
+      name: 'Ş.Mahir Ayabak İmam Hatip Ortaokulu',
+      slug: 's-mahir-ayabak-imam-hatip-ortaokulu',
+      description: 'Resmi İmam Hatip ortaokul amblemli Selanik kumaş tişört, sweatshirt ve okul kıyafetleri.',
+      sortOrder: 4,
+    },
+    {
+      name: 'Milli İrade İlk & Ortaokulu',
+      slug: 'milli-irade-ilk-ortaokulu',
+      description: 'Milli İrade ilkokul ve ortaokul resmi Selanik kumaş tişört ve kışlık eşofman takımı.',
+      sortOrder: 5,
+    },
+    {
+      name: 'T.O.B.B. İlkokulu',
+      slug: 'tobb-ilkokulu',
+      description: 'TOBB İlkokulu minik öğrencilerimiz için cilde dost terletmeyen anti-alerjik pamuklu okul formaları.',
+      sortOrder: 6,
+    },
+    {
+      name: 'Selahaddin Eyyubi Ortaokulu',
+      slug: 'selahaddin-eyyubi-ortaokulu',
+      description: 'Resmi amblemli Selanik dokuma polo yaka tişört, kışlık sweatshirt ve eşofman takımı.',
+      sortOrder: 7,
+    },
+    {
+      name: 'Ahmet Eren İlkokulu',
+      slug: 'ahmet-eren-ilkokulu',
+      description: 'Ahmet Eren İlkokulu kız ve erkek öğrenci pamuklu resmi polo tişört ve okul kıyafetleri.',
+      sortOrder: 8,
+    },
+    {
+      name: 'Zübeyde Hanım İlkokulu',
+      slug: 'zubeyde-hanim-ilkokulu',
+      description: 'Zübeyde Hanım İlkokulu resmi renk ve amblemlerine uygun pamuklu Selanik kumaş tişörtler.',
+      sortOrder: 9,
+    },
+    {
+      name: 'Yalnızçamlar İlk & Ortaokulu',
+      slug: 'yalnizcamlar-ilk-ortaokulu',
+      description: 'Yalnızçamlar ilk ve ortaokulu öğrenci Selanik kumaş tişört, sweatshirt ve spor takımları.',
+      sortOrder: 10,
+    },
+    {
+      name: 'N.Fazıl Kısakürek İlk & Ortaokulu',
+      slug: 'n-fazil-kisakurek-ilk-ortaokulu',
+      description: 'Necip Fazıl Kısakürek ilk ve ortaokulu onaylı nakış amblemli Selanik kumaş okul kıyafetleri.',
+      sortOrder: 11,
+    },
+    {
+      name: 'Hikmet Kiler Fen Lisesi',
+      slug: 'hikmet-kiler-fen-lisesi',
+      description: 'Fen Lisesi resmi onaylı amblemli Selanik kumaş polo yaka tişört, kışlık hırka ve sweatshirt.',
+      sortOrder: 12,
+    },
+    {
+      name: 'Bitlis Anadolu Lisesi',
+      slug: 'bitlis-anadolu-lisesi',
+      description: 'Bitlis Anadolu Lisesi resmi kız ve erkek öğrenci Selanik kumaş tişört ve kışlık sweatshirt.',
+      sortOrder: 13,
+    },
+    {
+      name: 'Cemil Özgür M.T.A.L.',
+      slug: 'cemil-ozgur-mtal',
+      description: 'Cemil Özgür M.T.A.L. resmi amblemli Selanik kumaş polo tişört ve lise kıyafet kombinleri.',
+      sortOrder: 14,
+    },
+    {
+      name: 'Said Nursi İmam Hatip Lisesi',
+      slug: 'said-nursi-imam-hatip-lisesi',
+      description: 'Said Nursi İmam Hatip Lisesi resmi öğrenci üniformaları, tişört ve kışlık sweatshirt modelleri.',
+      sortOrder: 15,
+    },
+  ];
+
+  for (const sch of initialSchools) {
+    await prisma.school.create({
+      data: {
+        name: sch.name,
+        slug: sch.slug,
+        description: sch.description,
+        sortOrder: sch.sortOrder,
+        isActive: true,
+      },
+    });
+  }
 
   // 5. Gallery Images
   await prisma.galleryImage.deleteMany();

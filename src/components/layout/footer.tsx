@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Scissors, MapPin, Phone, MessageCircle, Clock, Lock } from 'lucide-react';
+import { Shirt, MapPin, Phone, MessageCircle, Clock, Lock } from 'lucide-react';
 import { formatExternalUrl } from '@/lib/utils';
 
 interface FooterProps {
@@ -13,7 +13,7 @@ interface FooterProps {
 }
 
 export function Footer({
-  businessName = 'Esco Giyim Terzilik & Okul Kıyafetleri',
+  businessName = 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
   phone = '+90 532 313 78 37',
   whatsapp = '905323137837',
   address = 'Hüsrev Paşa, Çam sitesi İpek Apt. Altı, Bitlis Merkez / Bitlis',
@@ -32,12 +32,15 @@ export function Footer({
           <div className="flex flex-col space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-slate-950 font-bold">
-                <Scissors className="h-5 w-5 stroke-[2.5]" />
+                <Shirt className="h-5 w-5 stroke-[2.5]" />
               </div>
-              <span className="text-xl font-bold tracking-tight text-white font-serif">ESCO GİYİM</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold tracking-tight text-white font-serif">ESCO GİYİM</span>
+                <span className="text-[9px] font-bold uppercase tracking-wider text-amber-400">Okul Kıyafetleri & Erkek Giyim</span>
+              </div>
             </Link>
             <p className="text-xs text-slate-400 leading-relaxed">
-              30 yılı aşkın terzilik tecrübesi, kaliteli özel dikim hizmetleri ve anlaşmalı resmi okul kıyafetlerinde tescilli marka.
+              Resmi okul kıyafetleri, öğrenci üniformaları ve erkek giyim ürünlerinde yüksek kaliteli Selanik kumaşlar ve tescilli şıklık.
             </p>
             <div className="flex items-center gap-3 pt-2">
               {formattedInstagram && (

@@ -29,16 +29,6 @@ export default async function SchoolDetailPage({ params }: SchoolDetailPageProps
 
   const schoolDb = await db.school.findFirst({
     where: { slug, isDeleted: false },
-    include: {
-      products: {
-        where: { isActive: true, isDeleted: false },
-        orderBy: { sortOrder: 'asc' },
-        include: {
-          images: { orderBy: { sortOrder: 'asc' } },
-          sizes: { orderBy: { sortOrder: 'asc' } },
-        },
-      },
-    },
   });
 
   if (!schoolDb) {
@@ -53,14 +43,6 @@ export default async function SchoolDetailPage({ params }: SchoolDetailPageProps
     slug: schoolDb.slug,
     logoUrl: schoolDb.logoUrl,
     description: schoolDb.description,
-    products: schoolDb.products.map((p) => ({
-      id: p.id,
-      name: p.name,
-      slug: p.slug,
-      description: p.description,
-      images: p.images.map((i) => ({ id: i.id, url: i.imageUrl, isCover: i.isCover })),
-      sizes: p.sizes.map((s) => ({ id: s.id, name: s.name })),
-    })),
   };
 
   return (

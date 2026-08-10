@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: light;
+  supported-color-schemes: light;
+}
+
+html, body {
+  color-scheme: light !important;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Prevent Android Chrome / MIUI / Samsung Force Dark Mode color inversion */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light !important;
+  }
+}
+
 @layer base {
   body {
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;

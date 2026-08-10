@@ -12,7 +12,7 @@ export default async function AdminSettingsPage() {
 
   const defaultSettings = {
     id: 'default',
-    businessName: 'Esco Giyim Terzilik & Okul Kıyafetleri',
+    businessName: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
     phone: '+90 532 313 78 37',
     whatsapp: '905323137837',
     address: 'ESCO GİYİM, Hüsrev Paşa, Çam sitesi İpek Apt. Altı, Bitlis Merkez / Bitlis',
@@ -20,9 +20,9 @@ export default async function AdminSettingsPage() {
     instagramUrl: 'https://instagram.com/escogiyimokul',
     facebookUrl: 'https://facebook.com/escogiyimokul',
     workingHours: 'Pazartesi - Cumartesi: 08:30 - 19:30',
-    heroTitle: 'Esco Giyim Terzilik & Resmi Okul Kıyafetleri',
-    heroSubtitle: '30 yılı aşkın terzilik tecrübesi',
-    aboutTitle: 'Hakkımızda',
+    heroTitle: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
+    heroSubtitle: 'Kaliteli pamuk Selanik kumaş ve usta işçilik',
+    aboutTitle: 'Esco Giyim Kalitesi ve Usta İşçilik',
     aboutContent: 'Esco Giyim kalitesi',
     updatedAt: new Date(),
   };

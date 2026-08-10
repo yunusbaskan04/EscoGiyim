@@ -1,33 +1,35 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from '@/components/providers/session-provider';
 
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-sans',
 });
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
+const outfit = Outfit({
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-serif',
 });
 
 export const metadata: Metadata = {
-  title: 'Esco Giyim Terzilik & Resmi Okul Kıyafetleri',
+  title: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
   description:
-    'Özel dikim terzilik ve resmi okul kıyafetlerinde 30 yılı aşkın tecrübe, pamuklu kaliteli kumaşlar.',
+    'Resmi okul kıyafetleri, öğrenci üniformaları ve erkek giyimde yüksek kalite %100 pamuk Selanik kumaşlar.',
   keywords: [
     'Esco Giyim',
-    'Esco Giyim Terzilik',
     'Okul Kıyafetleri',
+    'Erkek Giyim',
     'Okul Üniforması',
-    'Terzi',
-    'Özel Dikim',
-    'Polo Tişört',
+    'Selanik Kumaş Polo Tişört',
     'Okul Forması Bitlis',
   ],
-  authors: [{ name: 'Esco Giyim Terzilik' }],
+  authors: [{ name: 'Esco Giyim' }],
+  other: {
+    'color-scheme': 'light only',
+    'supported-color-schemes': 'light',
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +38,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} ${playfair.variable} overflow-x-hidden max-w-full`} suppressHydrationWarning>
+    <html
+      lang="tr"
+      className={`${inter.variable} ${outfit.variable} overflow-x-hidden max-w-full light`}
+      style={{ colorScheme: 'light' }}
+      suppressHydrationWarning
+    >
+      <head>
+        <meta name="color-scheme" content="light only" />
+        <meta name="supported-color-schemes" content="light" />
+      </head>
       <body
         className="font-sans antialiased min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden max-w-full"
         suppressHydrationWarning

@@ -30,14 +30,14 @@ export interface SchoolFilterOption {
 }
 
 interface ProductCatalogGridProps {
-  products: ProductCatalogItem[];
-  schools: SchoolFilterOption[];
+  products?: ProductCatalogItem[];
+  schools?: SchoolFilterOption[];
   whatsappNumber?: string;
 }
 
 export function ProductCatalogGrid({
-  products,
-  schools,
+  products = [],
+  schools = [],
   whatsappNumber = '905323137837',
 }: ProductCatalogGridProps) {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -220,7 +220,7 @@ export function ProductCatalogGrid({
                       {product.name}
                     </h3>
                     <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed min-h-[2.25rem]">
-                      {product.description || '%100 Pamuklu onaylı kumaş, orijinal nakışlı okul üniforması.'}
+                      {product.description ? product.description.replace(/lakost/gi, 'Selanik') : '%100 Pamuklu Selanik kumaş, orijinal nakışlı okul üniforması.'}
                     </p>
 
                     {/* Size Badges */}
