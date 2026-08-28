@@ -8,10 +8,21 @@ import { SchoolsSearchGrid, SchoolItemData } from '@/components/schools/schools-
 export const revalidate = 60;
 
 export async function generateMetadata() {
-  const settings = await getSiteSettings();
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://escogiyim.com';
   return {
-    title: `Okul Listemiz - ${settings?.businessName || 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim'}`,
-    description: 'Kıyafetlerini tedarik ettiğimiz okul listemiz ve Selanik kumaş örnek öğrenci formaları.',
+    title: 'Bitlis Okul Kıyafetleri & Anlaşmalı Okul Listesi',
+    description:
+      'Bitlis ilkokul, ortaokul ve lise öğrencilerimiz için Selahaddin Eyyubi Ortaokulu dahil resmi okul forması ve üniforma listemiz.',
+    keywords: [
+      'Bitlis Okul Kıyafetleri',
+      'Bitlis Okul Formaları',
+      'Bitlis Öğrenci Üniforması',
+      'Bitlis Anlaşmalı Okul Listesi',
+      'Esco Giyim',
+    ],
+    alternates: {
+      canonical: `${siteUrl}/schools`,
+    },
   };
 }
 

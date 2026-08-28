@@ -13,19 +13,56 @@ const outfit = Outfit({
   variable: '--font-serif',
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://escogiyim.com';
+
 export const metadata: Metadata = {
-  title: 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
+    template: '%s | Esco Giyim Bitlis',
+  },
   description:
-    'Resmi okul kıyafetleri, öğrenci üniformaları ve erkek giyimde yüksek kalite %100 pamuk Selanik kumaşlar.',
+    'Bitlis merkez ve ilçelerindeki tüm ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim mağazası.',
   keywords: [
-    'Esco Giyim',
-    'Okul Kıyafetleri',
-    'Erkek Giyim',
-    'Okul Üniforması',
-    'Selanik Kumaş Polo Tişört',
-    'Okul Forması Bitlis',
+    'Bitlis Okul Forması',
+    'Bitlis Okul Kıyafetleri',
+    'Esco Giyim Bitlis',
+    'Selahaddin Eyyubi Ortaokulu Forması',
+    'Bitlis Okul Üniforması',
+    'Selanik Kumaş Okul Tişörtü',
+    'Bitlis Öğrenci Kıyafetleri',
+    'Erkek Giyim Bitlis',
+    'Bitlis Terzilik Okul Kıyafeti',
   ],
   authors: [{ name: 'Esco Giyim' }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'tr_TR',
+    url: siteUrl,
+    siteName: 'Esco Giyim Bitlis',
+    title: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
+    description:
+      'Bitlis ilindeki tüm okulların %100 pamuk Selanik kumaş resmi okul kıyafetleri ve üniformaları Esco Giyim mağazamızda.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
+    description: 'Bitlis okullarının resmi öğrenci kıyafetleri ve üniformaları.',
+  },
+  verification: {
+    google: 'googled6eef6bc036e6fef',
+  },
   other: {
     'color-scheme': 'light only',
     'supported-color-schemes': 'light',
@@ -37,6 +74,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ClothingStore',
+    name: 'Esco Giyim - Bitlis Okul Forması & Erkek Giyim',
+    url: siteUrl,
+    description:
+      'Bitlis merkez ve ilçelerindeki tüm okulların resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Bitlis',
+      addressRegion: 'Bitlis',
+      addressCountry: 'TR',
+    },
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: 'Bitlis',
+    },
+    priceRange: '₺₺',
+  };
+
   return (
     <html
       lang="tr"
@@ -47,6 +104,10 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light only" />
         <meta name="supported-color-schemes" content="light" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body
         className="font-sans antialiased min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden max-w-full"
@@ -57,3 +118,4 @@ export default function RootLayout({
     </html>
   );
 }
+
