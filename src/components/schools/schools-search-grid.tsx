@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import { Search, GraduationCap, Shirt, CheckCircle2, MessageCircle } from 'lucide-react';
+import Link from 'next/link';
+import { Search, GraduationCap, Shirt, CheckCircle2, MessageCircle, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -42,7 +43,7 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
           <Input
             type="text"
-            placeholder="Okul adı ara (örn: Hikmet Kiler Fen Lisesi, Bitlis Lisesi)..."
+            placeholder="Okul adı ara (örn: Selahaddin Eyyubi, Hikmet Kiler, Bitlis Lisesi)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-12 pr-10 h-13 text-sm sm:text-base rounded-2xl border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500"
@@ -96,9 +97,12 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                 key={school.id}
                 className="group flex flex-col justify-between overflow-hidden border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 bg-white"
               >
-                {/* Photo header if school has logoUrl */}
-                {school.logoUrl && (
-                  <div className="relative h-48 w-full bg-slate-100 overflow-hidden shrink-0">
+                {/* Photo header link */}
+                <Link
+                  href={`/schools/${school.slug}`}
+                  className="block relative h-48 w-full bg-slate-100 overflow-hidden shrink-0 cursor-pointer"
+                >
+                  {school.logoUrl ? (
                     <Image
                       src={school.logoUrl}
                       alt={school.name}
@@ -106,14 +110,18 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="amber" className="text-[10px] font-bold gap-1 shadow-md">
-                        <GraduationCap className="h-3 w-3" />
-                        <span>Resmi Forması Mevcut</span>
-                      </Badge>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-400">
+                      <GraduationCap className="h-16 w-16" />
                     </div>
+                  )}
+                  <div className="absolute top-3 left-3">
+                    <Badge variant="amber" className="text-[10px] font-bold gap-1 shadow-md">
+                      <GraduationCap className="h-3 w-3" />
+                      <span>Resmi Forması Mevcut</span>
+                    </Badge>
                   </div>
-                )}
+                </Link>
 
                 <CardContent className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-3">
@@ -130,9 +138,11 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                       </div>
                     )}
 
-                    <h3 className="text-lg font-bold font-serif text-slate-900 group-hover:text-amber-600 transition leading-snug line-clamp-2 min-h-[3rem]">
-                      {school.name}
-                    </h3>
+                    <Link href={`/schools/${school.slug}`} className="block group-hover:text-amber-600 transition">
+                      <h3 className="text-lg font-bold font-serif text-slate-900 leading-snug line-clamp-2 min-h-[3rem]">
+                        {school.name}
+                      </h3>
+                    </Link>
 
                     <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed min-h-[3rem]">
                       {school.description || '%100 Pamuk Selanik kumaş polo yaka tişört, kışlık sweatshirt ve eşofman takımı.'}
@@ -150,7 +160,15 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                     </div>
                   </div>
 
-                  <div className="pt-3 mt-auto">
+                  <div className="pt-3 mt-auto space-y-2">
+                    <Link
+                      href={`/schools/${school.slug}`}
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 px-3 transition shadow-sm"
+                    >
+                      <span>Okul Kıyafetlerini İncele</span>
+                      <ArrowRight className="h-4 w-4 shrink-0" />
+                    </Link>
+
                     <a
                       href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(waMsg)}`}
                       target="_blank"
@@ -170,3 +188,4 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
     </div>
   );
 }
+

@@ -2,7 +2,10 @@ import { MetadataRoute } from 'next';
 import { db, safeQuery } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://escogiyim.com';
+  const rawUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+    'https://esco-giyim-beryl.vercel.app';
   const baseUrl = rawUrl.startsWith('http') ? rawUrl.replace(/\/$/, '') : `https://${rawUrl.replace(/\/$/, '')}`;
 
   const staticRoutes = ['', '/about', '/schools', '/gallery', '/faq', '/contact'].map((route) => ({
