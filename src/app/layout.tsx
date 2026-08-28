@@ -13,10 +13,7 @@ const outfit = Outfit({
   variable: '--font-serif',
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-  'https://esco-giyim-beryl.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://esco-giyim-beryl.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

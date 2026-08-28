@@ -19,10 +19,7 @@ export async function generateMetadata({ params }: SchoolDetailPageProps): Promi
     return { title: 'Okul Bulunamadı' };
   }
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-    'https://esco-giyim-beryl.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://esco-giyim-beryl.vercel.app';
   const title = `Bitlis ${school.name} Forması & Okul Kıyafeti`;
   const description = `${school.name} resmi kız ve erkek öğrenci okul formaları Esco Giyim mağazamızda mevcuttur.`;
   const schoolUrl = `${siteUrl}/schools/${school.slug}`;
@@ -67,10 +64,7 @@ export default async function SchoolDetailPage({ params }: SchoolDetailPageProps
   }
 
   const settings = await db.siteSettings.findUnique({ where: { id: 'default' } });
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
-    'https://esco-giyim-beryl.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://esco-giyim-beryl.vercel.app';
   const schoolUrl = `${siteUrl}/schools/${schoolDb.slug}`;
 
   const schoolData: SchoolDetailData = {
