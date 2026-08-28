@@ -90,7 +90,7 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredSchools.map((school) => {
-            const waMsg = `Merhaba, Esco Giyim web sitenizden ulaşıyorum. "${school.name}" resmi okul üniformaları (Selanik tişört, sweatshirt) hakkında bilgi almak istiyorum.`;
+            const waMsg = `Merhaba, Esco Giyim web sitenizden ulaşıyorum. "${school.name}" resmi okul formaları hakkında bilgi ve beden danışmak istiyorum.`;
 
             return (
               <Card

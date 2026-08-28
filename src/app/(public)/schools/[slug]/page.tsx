@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: SchoolDetailPageProps): Promi
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
     'https://esco-giyim-beryl.vercel.app';
   const title = `Bitlis ${school.name} Forması & Okul Kıyafeti`;
-  const description = `${school.name} resmi kız ve erkek öğrenci okul formaları, %100 pamuklu Selanik kumaş tişört ve hırka çeşitleri Esco Giyim Bitlis mağazasında.`;
+  const description = `${school.name} resmi kız ve erkek öğrenci okul formaları Esco Giyim mağazamızda mevcuttur.`;
   const schoolUrl = `${siteUrl}/schools/${school.slug}`;
 
   return {

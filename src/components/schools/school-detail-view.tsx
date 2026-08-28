@@ -53,14 +53,14 @@ export function SchoolDetailView({ school, whatsappNumber = '905323137837' }: Sc
           </Badge>
           <h1 className="text-3xl md:text-4xl font-bold font-serif text-white">{school.name}</h1>
           <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-2xl">
-            {school.name} resmi kız ve erkek öğrenci okul formaları, %100 pamuklu Selanik kumaş polo tişört, kışlık sweatshirt ve eşofman takımları Esco Giyim stoklarımızda mevcuttur.
+            {school.name} resmi kız ve erkek öğrenci okul formaları Esco Giyim mağazamızda mevcuttur.
           </p>
           <div className="pt-2">
             <WhatsAppButton
               whatsappNumber={whatsappNumber}
               variant="medium"
-              label={`${school.name} Kıyafetleri İçin WhatsApp Sipariş & Bilgi`}
-              message={`Merhaba, Esco Giyim web sitenizden ulaşıyorum. "${school.name}" okul kıyafetleri (Selanik tişört, sweatshirt, eşofman) hakkında bilgi ve beden danışmak istiyorum.`}
+              label={`${school.name} Formaları İçin WhatsApp Sipariş & Bilgi`}
+              message={`Merhaba, Esco Giyim web sitenizden ulaşıyorum. "${school.name}" resmi okul formaları hakkında bilgi ve beden danışmak istiyorum.`}
             />
           </div>
         </div>
