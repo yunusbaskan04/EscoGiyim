@@ -145,7 +145,7 @@ export function SchoolsSearchGrid({ schools, whatsappNumber = '905323137837' }: 
                     </Link>
 
                     <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed min-h-[3rem]">
-                      {school.description || '%100 Pamuk Selanik kumaş polo yaka tişört, kışlık sweatshirt ve eşofman takımı.'}
+                      {school.name} resmi kız ve erkek öğrenci okul formaları stoklarımızda mevcuttur.
                     </p>
 
                     <div className="pt-2 border-t border-slate-100 space-y-1 text-[11px] text-slate-500 font-medium">
