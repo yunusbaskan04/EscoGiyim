@@ -29,10 +29,10 @@ export const revalidate = 60;
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {
-    title: `${settings?.businessName || 'Esco Giyim - Okul Kıyafetleri & Erkek Giyim'} - Bitlis`,
+    title: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
     description:
       settings?.heroSubtitle ||
-      'Bitlis ve çevresinde resmi okul üniformaları, Selanik kumaş polo tişörtler, kışlık sweatshirt modelleri ve erkek giyim ürünleri.',
+      'Bitlis ve çevresindeki ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selanik kumaş polo tişörtler, kışlık sweatshirt modelleri ve erkek giyim ürünleri.',
   };
 }
 
