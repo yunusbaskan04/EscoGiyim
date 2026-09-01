@@ -13,7 +13,7 @@ const outfit = Outfit({
   variable: '--font-serif',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://esco-giyim-beryl.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://escogiyim.com.tr';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: '%s | Esco Giyim Bitlis',
   },
   description:
-    'Bitlis merkez ve ilçelerindeki tüm ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim mağazası.',
+    'Bitlis merkezdeki tüm ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim mağazası.',
   keywords: [
     'Bitlis Okul Forması',
     'Bitlis Okul Kıyafetleri',
@@ -78,20 +78,57 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'ClothingStore',
     name: 'Esco Giyim - Bitlis Okul Forması & Erkek Giyim',
+    alternateName: ['Esco Giyim Bitlis', 'Esco Giyim Okul Kıyafetleri'],
     url: siteUrl,
+    logo: `${siteUrl}/images/logo.png`,
+    image: `${siteUrl}/images/magaza-vitrin.jpg`,
     description:
-      'Bitlis merkez ve ilçelerindeki tüm okulların resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim.',
+      'Bitlis merkezdeki tüm ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim mağazası.',
+    telephone: '+905323137837',
+    priceRange: '₺₺',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Bitlis',
       addressRegion: 'Bitlis',
       addressCountry: 'TR',
     },
-    areaServed: {
-      '@type': 'AdministrativeArea',
-      name: 'Bitlis',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '38.4006',
+      longitude: '42.1095',
     },
-    priceRange: '₺₺',
+    areaServed: [
+      {
+        '@type': 'AdministrativeArea',
+        name: 'Bitlis Merkez',
+      },
+    ],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '08:30',
+        closes: '19:30',
+      },
+    ],
+    makesOffer: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Bitlis İlkokul, Ortaokul ve Lise Okul Forması',
+          description: '%100 Pamuk Selanik Kumaş Polo Yaka Tişört ve Kışlık Sweatshirt Üniformaları',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Product',
+          name: 'Erkek Giyim Ürünleri',
+          description: 'Gömlek, Pantolon, Takım Elbise ve Ceket Modelleri',
+        },
+      },
+    ],
   };
 
   return (

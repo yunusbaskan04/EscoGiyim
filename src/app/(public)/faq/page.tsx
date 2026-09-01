@@ -35,36 +35,57 @@ export default async function FaqPage() {
     category: f.category,
   }));
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://escogiyim.com.tr';
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
-    <div className="flex flex-col w-full py-12 md:py-20 bg-slate-50">
-      <div className="mx-auto max-w-7xl px-4 space-y-12">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <Badge variant="amber">Destek & Bilgi</Badge>
-          <h1 className="text-4xl font-bold font-serif text-slate-900">Sıkça Sorulan Sorular</h1>
-          <p className="text-slate-600 text-base leading-relaxed">
-            Velilerimizin ve müşterilerimizin okul kıyafetlerimiz, Selanik kumaş kalitemiz, erkek giyim ürünlerimiz ve beden değişimi ile ilgili merak ettiği tüm detaylar.
-          </p>
-        </div>
-
-        {/* Search & Accordion */}
-        <FaqSearchAccordion faqs={faqs} />
-
-        {/* Still have questions banner */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-slate-900 text-white p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-1 text-center md:text-left">
-            <h3 className="text-xl font-bold font-serif">Aradığınız cevabı bulamadınız mı?</h3>
-            <p className="text-xs text-slate-300">
-              Bize doğrudan WhatsApp üzerinden ulaşıp tüm sorularınızı sorabilirsiniz.
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="flex flex-col w-full py-12 md:py-20 bg-slate-50">
+        <div className="mx-auto max-w-7xl px-4 space-y-12">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <Badge variant="amber">Destek & Bilgi</Badge>
+            <h1 className="text-4xl font-bold font-serif text-slate-900">Sıkça Sorulan Sorular</h1>
+            <p className="text-slate-600 text-base leading-relaxed">
+              Velilerimizin ve müşterilerimizin okul kıyafetlerimiz, Selanik kumaş kalitemiz, erkek giyim ürünlerimiz ve beden değişimi ile ilgili merak ettiği tüm detaylar.
             </p>
           </div>
-          <WhatsAppButton
-            whatsappNumber={settings?.whatsapp}
-            variant="medium"
-            label="Doğrudan Bize Yazın"
-          />
+
+          {/* Search & Accordion */}
+          <FaqSearchAccordion faqs={faqs} />
+
+          {/* Still have questions banner */}
+          <div className="max-w-4xl mx-auto rounded-3xl bg-slate-900 text-white p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+            <div className="space-y-1 text-center md:text-left">
+              <h3 className="text-xl font-bold font-serif">Aradığınız cevabı bulamadınız mı?</h3>
+              <p className="text-xs text-slate-300">
+                Bize doğrudan WhatsApp üzerinden ulaşıp tüm sorularınızı sorabilirsiniz.
+              </p>
+            </div>
+            <WhatsAppButton
+              whatsappNumber={settings?.whatsapp}
+              variant="medium"
+              label="Doğrudan Bize Yazın"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

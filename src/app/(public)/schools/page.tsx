@@ -8,7 +8,7 @@ import { SchoolsSearchGrid, SchoolItemData } from '@/components/schools/schools-
 export const revalidate = 60;
 
 export async function generateMetadata() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://esco-giyim-beryl.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://escogiyim.com.tr';
   return {
     title: 'Bitlis Okul Kıyafetleri & Anlaşmalı Okul Listesi',
     description:
