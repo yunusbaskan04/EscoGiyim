@@ -46,6 +46,14 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: [
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
@@ -54,11 +62,20 @@ export const metadata: Metadata = {
     title: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
     description:
       'Bitlis ilindeki tüm okulların %100 pamuk Selanik kumaş resmi okul kıyafetleri ve üniformaları Esco Giyim mağazamızda.',
+    images: [
+      {
+        url: `${siteUrl}/images/logo.png`,
+        width: 600,
+        height: 600,
+        alt: 'Esco Giyim Bitlis Logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Bitlis Okul Forması & Kıyafetleri | Esco Giyim',
     description: 'Bitlis okullarının resmi öğrenci kıyafetleri ve üniformaları.',
+    images: [`${siteUrl}/images/logo.png`],
   },
   verification: {
     google: 'googled6eef6bc036e6fef',
@@ -81,7 +98,7 @@ export default function RootLayout({
     alternateName: ['Esco Giyim Bitlis', 'Esco Giyim Okul Kıyafetleri'],
     url: siteUrl,
     logo: `${siteUrl}/images/logo.png`,
-    image: `${siteUrl}/images/magaza-vitrin.jpg`,
+    image: `${siteUrl}/images/logo.png`,
     description:
       'Bitlis merkezdeki tüm ilkokul, ortaokul ve lise resmi okul kıyafetleri, Selahaddin Eyyubi Ortaokulu dahil öğrenci üniformaları ve erkek giyim mağazası.',
     telephone: '+905323137837',
@@ -137,6 +154,9 @@ export default function RootLayout({
       <head>
         <meta name="color-scheme" content="light only" />
         <meta name="supported-color-schemes" content="light" />
+        <link rel="icon" href="/icon.png" sizes="512x512" type="image/png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
