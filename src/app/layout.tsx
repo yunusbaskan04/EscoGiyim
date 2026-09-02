@@ -111,24 +111,20 @@ export default function RootLayout({
         closes: '19:30',
       },
     ],
-    makesOffer: [
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Product',
-          name: 'Bitlis İlkokul, Ortaokul ve Lise Okul Forması',
-          description: '%100 Pamuk Selanik Kumaş Polo Yaka Tişört ve Kışlık Sweatshirt Üniformaları',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Esco Giyim Ürün ve Hizmet Kataloğu',
+      itemListElement: [
+        {
+          '@type': 'OfferCatalog',
+          name: 'Bitlis İlkokul, Ortaokul ve Lise Okul Formaları',
         },
-      },
-      {
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Product',
-          name: 'Erkek Giyim Ürünleri',
-          description: 'Gömlek, Pantolon, Takım Elbise ve Ceket Modelleri',
+        {
+          '@type': 'OfferCatalog',
+          name: 'Erkek Giyim & Özel Dikim Hizmetleri',
         },
-      },
-    ],
+      ],
+    },
   };
 
   return (

@@ -102,22 +102,32 @@ export default async function SchoolDetailPage({ params }: SchoolDetailPageProps
         ],
       },
       {
-        '@type': 'Product',
+        '@type': 'WebPage',
+        '@id': schoolUrl,
+        url: schoolUrl,
         name: `Bitlis ${schoolDb.name} Okul Kıyafeti & Forması`,
-        description: schoolDb.description || `${schoolDb.name} resmi öğrenci kıyafeti, Selanik kumaş polo tişört ve sweatshirt takımı.`,
-        category: 'Okul Forması',
-        brand: {
-          '@type': 'Brand',
-          name: 'Esco Giyim',
+        description:
+          schoolDb.description ||
+          `${schoolDb.name} resmi öğrenci kıyafeti, Selanik kumaş polo tişört ve sweatshirt takımı Esco Giyim Bitlis mağazamızda mevcuttur.`,
+        provider: {
+          '@type': 'ClothingStore',
+          name: 'Esco Giyim Bitlis',
+          url: siteUrl,
         },
-        offers: {
-          '@type': 'Offer',
-          priceCurrency: 'TRY',
-          availability: 'https://schema.org/InStock',
-          seller: {
-            '@type': 'ClothingStore',
-            name: 'Esco Giyim Bitlis',
-          },
+      },
+      {
+        '@type': 'Service',
+        name: `${schoolDb.name} Okul Forması Temin Hizmeti`,
+        description: `${schoolDb.name} resmi öğrenci kıyafetleri, Selanik kumaş polo tişört, sweatshirt, beden uyum garantisi ve paça tadilatı hizmeti.`,
+        provider: {
+          '@type': 'ClothingStore',
+          name: 'Esco Giyim Bitlis',
+          telephone: '+905323137837',
+          url: siteUrl,
+        },
+        areaServed: {
+          '@type': 'AdministrativeArea',
+          name: 'Bitlis',
         },
       },
     ],
